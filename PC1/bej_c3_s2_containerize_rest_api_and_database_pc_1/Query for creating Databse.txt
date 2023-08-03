@@ -1,0 +1,55 @@
+															
+CREATING A MONGODB DATABASE TO STORE CUSTOMER DETAILS USING DOCKER
+******************************************************************
+														   
+STEP-1 :  Pull Mongo Image with latest Tag
+		=> C:\Users\miman>docker pull mongo
+		
+STEP-2 : Run the image to create the container
+		=> C:\Users\miman>docker run --name CustomerDbInMongo -p 27017:27017 mongo:latest
+
+STEP-3 : Execute the container to get the input to open mongo shell 
+		=> C:\Users\miman>docker exec -it CustomerDbInMongo bash
+
+STEP-4 : Type mongosh to open mongo shell	
+		=> root@b7b3cf9ccc9f:/# mongosh
+
+STEP-5 : Write Query to show the existing databases of Mongo
+		=> test> show dbs
+
+STEP-6 : Write Query to create new database
+		=> test> use CustomerDb
+				 switched to db CustomerDb
+				 CustomerDb>
+
+STEP-7 :  Write Query to create a collection within CustomerDb Database
+		=> CustomerDb> db.createCollection("Customers")
+		   { ok: 1 }	
+
+STEP-8 : Write Query to insert values to the collection
+		=> CustomerDb> db.Customers.insertOne({
+		   ... customerName : "Mim",
+		   ... customerAge :23,
+		   ... address : "Bhagalpur, Bihar",
+		   ... phoneNumber : 8409978804,
+		   ... email : "mim@gmail.com"
+		   ... })
+			{
+				acknowledged: true,
+				insertedId: ObjectId("643a46a973273c3ec00f6213")
+			}
+		   
+STEP-9 : Write Query to the collection data in pretty format
+		=> CustomerDb> db.Customers.find().pretty();
+			[
+			{
+			_id: ObjectId("643a46a973273c3ec00f6213"),
+			customerName: 'Mim',
+			customerAge: 23,
+			address: 'Bhagalpur, Bihar',
+			phoneNumber: 8409978804,
+			email: 'mim@gmail.com'
+			}
+			]
+CustomerDb>	
+			   
